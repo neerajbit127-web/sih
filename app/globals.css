@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #14213D;
+  --slate: #3D5A80;
+  --amber: #E8A33D;
+  --paper: #F2EFE6;
+  --green: #4C8C6B;
+  --text: #1A1A1A;
+  --line: #D9D4C6;
+  --background: #F2EFE6;
+  --foreground: #1A1A1A;
+  --font-roboto: 'Roboto', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #F2EFE6;
+  color: #1A1A1A;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'IBM Plex Serif', Georgia, serif;
+  font-weight: 600;
+}
+
+/* Specific class to force Roboto font for the Browse Challenges page */
+.font-roboto,
+.font-roboto *,
+.font-roboto h1,
+.font-roboto h2,
+.font-roboto h3,
+.font-roboto h4,
+.font-roboto h5,
+.font-roboto h6,
+.font-roboto p,
+.font-roboto span,
+.font-roboto a,
+.font-roboto button,
+.font-roboto input,
+.font-roboto select,
+.font-roboto textarea,
+.font-roboto div {
+  font-family: var(--font-roboto), 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
