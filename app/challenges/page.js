@@ -21,7 +21,7 @@ import {
 import ProblemSubmissionModal from '@/component/ProblemSubmissionModal'
 
 export default function BrowseChallengesPage() {
-  const [challenges, setChallenges] = useState(DEFAULT_TEMPLATE_CHALLENGES)
+  const [challenges, setChallenges] = useState([])
   const [selectedDomain, setSelectedDomain] = useState("All Domains")
   const [searchQuery, setSearchQuery] = useState("")
   const [statusFilter, setStatusFilter] = useState("All")
@@ -295,14 +295,8 @@ export default function BrowseChallengesPage() {
             </p>
             <div className="mt-5 flex items-center justify-center gap-3">
               <button
-                onClick={resetTemplateData}
-                className="px-4 py-2 rounded-lg bg-white border border-[#D9D4C6] text-[#14213D] text-xs font-semibold hover:bg-slate-50 transition cursor-pointer"
-              >
-                Load Template Cards
-              </button>
-              <button
-                onClick={() => setNewChallengeModalOpen(true)}
-                className="px-4 py-2 rounded-lg bg-[#E8A33D] hover:bg-[#d9942e] text-[#14213D] text-xs font-bold transition cursor-pointer"
+                onClick={() => setProblemModalOpen(true)}
+                className="px-5 py-2.5 rounded-lg bg-[#E8A33D] hover:bg-[#d9942e] text-[#14213D] text-xs font-bold transition shadow-xs cursor-pointer"
               >
                 + Post First Challenge
               </button>
@@ -454,7 +448,7 @@ export default function BrowseChallengesPage() {
 
           <div className="flex-shrink-0">
             <button
-              onClick={() => setNewChallengeModalOpen(true)}
+              onClick={() => setProblemModalOpen(true)}
               className="px-6 py-3 rounded-lg bg-[#E8A33D] hover:bg-[#d9942e] text-[#14213D] font-bold text-sm transition shadow-sm active:scale-95 cursor-pointer"
             >
               Post a Problem Statement

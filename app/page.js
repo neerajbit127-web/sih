@@ -105,13 +105,13 @@ export default function Home() {
 
               {/* CTAs */}
               <div className="mt-8 flex flex-wrap items-center gap-3.5 sm:gap-4">
-                <button
-                  onClick={() => setGrievanceModalOpen(true)}
+                <Link
+                  href="/submit-problem"
                   className="px-6 py-3 rounded-lg bg-[#E8A33D] hover:bg-[#d9942e] text-[#14213D] font-semibold text-sm transition shadow-sm active:scale-[0.99] cursor-pointer inline-flex items-center gap-2"
                 >
                   <FiPlus className="w-4 h-4 stroke-[2.5]" />
                   <span>Submit a Grievance</span>
-                </button>
+                </Link>
 
                 <Link
                   href="/challenges"
@@ -291,12 +291,12 @@ export default function Home() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <button
-              onClick={() => setGrievanceModalOpen(true)}
-              className="px-6 py-3 rounded-lg bg-[#E8A33D] hover:bg-[#d9942e] text-[#14213D] font-semibold text-sm transition shadow-sm active:scale-95 cursor-pointer"
+            <Link
+              href="/submit-problem"
+              className="px-6 py-3 rounded-lg bg-[#E8A33D] hover:bg-[#d9942e] text-[#14213D] font-semibold text-sm transition shadow-sm active:scale-95 cursor-pointer inline-flex items-center justify-center"
             >
               Submit a Grievance
-            </button>
+            </Link>
 
             <Link
               href="/challenges"

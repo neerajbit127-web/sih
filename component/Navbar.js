@@ -55,6 +55,14 @@ const Navbar = () => {
           </li>
           <li>
             <Link
+              href="/dashboard"
+              className="text-white/80 hover:text-white px-3.5 py-1.5 rounded-full text-sm font-medium transition-colors hover:bg-white/5"
+            >
+              Dashboard
+            </Link>
+          </li>
+          <li>
+            <Link
               href="/submit-problem"
               className="text-[#E8A33D] hover:text-white px-3.5 py-1.5 rounded-full text-sm font-medium transition-colors hover:bg-white/5"
             >
@@ -150,6 +158,15 @@ const Navbar = () => {
                 className="block px-3 py-2 rounded-lg text-white/90 hover:text-white hover:bg-white/10 transition"
               >
                 Browse Challenges
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/dashboard"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-3 py-2 rounded-lg text-white/90 hover:text-white hover:bg-white/10 transition"
+              >
+                Dashboard
               </Link>
             </li>
             <li>

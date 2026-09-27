@@ -8,8 +8,8 @@ const roboto = Roboto({
 })
 
 export const metadata = {
-  title: "Submit a Problem Statement | Jan Samadhaan Setu",
-  description: "Register a civic or societal problem statement for solver teams and innovators across India.",
+  title: "Submit a Problem | Jan Samadhaan Setu",
+  description: "Report a public or community problem for automated routing and transparent resolution.",
 }
 
 export default function SubmitProblemLayout({ children }) {

@@ -1,7 +1,16 @@
+"use client"
 import React from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 const Footer = () => {
+  const pathname = usePathname()
+
+  // Do not render footer on sign up and login window pages
+  if (pathname === '/signup' || pathname === '/login') {
+    return null
+  }
+
   return (
     <footer id="footer" className="border-t border-[#3D5A80]/30 bg-[#14213D] text-white/70 py-12 text-xs mt-auto">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -46,13 +55,13 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/#dashboard-preview" className="hover:text-[#E8A33D] transition-colors">
+                <Link href="/dashboard?tab=tracker" className="hover:text-[#E8A33D] transition-colors">
                   Track Grievance
                 </Link>
               </li>
               <li>
-                <Link href="/#dashboard-preview" className="hover:text-[#E8A33D] transition-colors">
-                  Dashboard
+                <Link href="/dashboard" className="hover:text-[#E8A33D] transition-colors">
+                  Citizen Dashboard
                 </Link>
               </li>
             </ul>
