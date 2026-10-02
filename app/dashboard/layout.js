@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "Citizen Dashboard | Jan Samadhaan Setu",
-  description: "Track your reported public problems, view civic resolution progress, and provide feedback on Jan Samadhaan Setu.",
+  title: "Stakeholder Dashboards | Jan Samadhaan Setu",
+  description: "Civic innovation and governance portal for students, faculties, universities, citizens, municipal governments, and companies.",
 };
 
 export default function DashboardLayout({ children }) {

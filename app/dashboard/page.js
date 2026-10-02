@@ -28,6 +28,7 @@ import {
   calculateCitizenMetrics,
   clearAllCitizenData
 } from '@/lib/citizenData'
+import DashboardRoleSwitcher from '@/component/DashboardRoleSwitcher'
 
 function EnhancedDashboardContent() {
   const { data: session } = useSession()
@@ -54,12 +55,26 @@ function EnhancedDashboardContent() {
   const [feedbackSuccess, setFeedbackSuccess] = useState(false)
   const [copiedId, setCopiedId] = useState(false)
   const [showNewAlert, setShowNewAlert] = useState(Boolean(newSubmissionId))
+  const [citizenProfile, setCitizenProfile] = useState(CITIZEN_PROFILE)
 
   // Load grievances on mount
   useEffect(() => {
     const list = getCitizenGrievances()
     setGrievances(list)
     setActivities(getCitizenActivities(list))
+
+    try {
+      const stored = localStorage.getItem('jss_citizen_profile')
+      if (stored) {
+        const parsed = JSON.parse(stored)
+        setCitizenProfile((prev) => ({
+          ...prev,
+          name: parsed.name || prev.name,
+          phone: parsed.mobile ? `+91 ${parsed.mobile}` : prev.phone,
+          email: parsed.email || prev.email
+        }))
+      }
+    } catch {}
 
     if (newSubmissionId) {
       const match = list.find((g) => g.id === newSubmissionId)
@@ -209,6 +224,9 @@ function EnhancedDashboardContent() {
     <div className="w-full min-h-screen bg-[#F2EFE6] text-[#1A1A1A] font-roboto py-6 sm:py-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-6">
 
+        {/* Role Switcher Bar */}
+        <DashboardRoleSwitcher activeRole="citizen" />
+
         {/* ==================================================
             DASHBOARD HEADER
             ================================================== */}
@@ -229,7 +247,7 @@ function EnhancedDashboardContent() {
                 Citizen Dashboard
               </h1>
               <p className="text-xs sm:text-sm text-slate-600 mt-1">
-                Welcome back, {session?.user?.name || CITIZEN_PROFILE.name}. Track the progress of public problems you have reported.
+                Welcome back, {session?.user?.name || citizenProfile.name}. Track the progress of public problems you have reported.
               </p>
             </div>
 
@@ -489,20 +507,26 @@ function EnhancedDashboardContent() {
             <div className="bg-white rounded-xl border border-[#D9D4C6] p-4 sm:p-5 shadow-xs text-xs space-y-2.5">
               <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                 <span className="font-bold text-[#14213D]">Citizen Profile</span>
-                <span className="text-[10px] text-slate-500 font-mono">{CITIZEN_PROFILE.id}</span>
+                <span className="text-[10px] text-slate-500 font-mono">{citizenProfile.id}</span>
               </div>
               <div className="space-y-1.5 text-slate-600">
                 <div className="flex justify-between">
                   <span className="text-slate-500">Name:</span>
-                  <span className="font-medium text-slate-800">{session?.user?.name || CITIZEN_PROFILE.name}</span>
+                  <span className="font-medium text-slate-800">{session?.user?.name || citizenProfile.name}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-500">Ward / City:</span>
-                  <span className="font-medium text-slate-800">{CITIZEN_PROFILE.locality}, {CITIZEN_PROFILE.city}</span>
+                  <span className="font-medium text-slate-800">
+                    {citizenProfile.locality && citizenProfile.locality !== '-'
+                      ? `${citizenProfile.locality}${citizenProfile.city && citizenProfile.city !== '-' ? `, ${citizenProfile.city}` : ''}`
+                      : 'Not Specified'}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-500">Contact:</span>
-                  <span className="font-medium text-slate-800">{CITIZEN_PROFILE.phone}</span>
+                  <span className="font-medium text-slate-800">
+                    {citizenProfile.phone && citizenProfile.phone !== '-' ? citizenProfile.phone : 'Not Specified'}
+                  </span>
                 </div>
               </div>
             </div>

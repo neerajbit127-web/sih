@@ -5,12 +5,13 @@ import CredentialsProvider from "next-auth/providers/credentials"
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
-      name: "Citizen Account",
+      name: "Stakeholder Account",
       credentials: {
         identifier: { label: "Email or Mobile", type: "text" },
         password: { label: "Password", type: "password" },
         name: { label: "Full Name", type: "text" },
-        locality: { label: "Locality", type: "text" }
+        role: { label: "Role", type: "text" },
+        organization: { label: "Organization", type: "text" }
       },
       async authorize(credentials) {
         if (!credentials?.identifier || !credentials?.password) {
@@ -19,13 +20,16 @@ const handler = NextAuth({
 
         const raw = credentials.identifier.trim()
         const isEmail = raw.includes('@')
-        const name = credentials.name || (isEmail ? raw.split('@')[0] : `Citizen ${raw.slice(-4)}`)
-        const email = isEmail ? raw : `${raw}@citizen.jss.gov.in`
+        const role = credentials.role || 'citizen'
+        const rolePrefix = role === 'student' ? 'STU' : role === 'faculty' ? 'FAC' : role === 'university' ? 'UNI' : role === 'government' ? 'GOV' : role === 'company' ? 'CORP' : 'CIT'
+        const name = credentials.name || (isEmail ? raw.split('@')[0] : `${role.toUpperCase()} User`)
+        const email = isEmail ? raw : `${raw}@${role}.jss.gov.in`
 
         return {
-          id: "JSS-CIT-" + Math.floor(10000 + Math.random() * 90000),
+          id: `JSS-${rolePrefix}-${Math.floor(10000 + Math.random() * 90000)}`,
           name: name.charAt(0).toUpperCase() + name.slice(1),
-          email: email
+          email: email,
+          role: role
         }
       }
     }),
@@ -45,6 +49,7 @@ const handler = NextAuth({
       if (user) {
         token.id = user.id
         token.name = user.name
+        token.role = user.role || 'citizen'
       }
       return token
     },
@@ -52,6 +57,7 @@ const handler = NextAuth({
       if (token) {
         session.user.id = token.id || token.sub
         session.user.name = token.name || session.user.name
+        session.user.role = token.role || 'citizen'
       }
       return session
     }
